@@ -15,7 +15,7 @@ public class MainController {
 		this.templateService = templateService;
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public String getIndex() {
 		return templateService.getTemplate("index.vm");
 	}
