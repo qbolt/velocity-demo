@@ -1,0 +1,17 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Velocity Demo</title>
+</head>
+
+<body>
+	<input type="text" onkeydown="filter(this)"></input>
+	#foreach ($person in $personList)
+		<div>
+			<h4>$person.name</h4>
+		</div>
+	#end
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/js/filter.js"></script>
+</body>
+</html>
