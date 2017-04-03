@@ -8,16 +8,12 @@ import java.net.Proxy;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fedex.airops.dao.Person;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -25,7 +21,7 @@ public class DataService {
 
 	private final static String dataUrl = "https://api.myjson.com/bins/qiver";
 	
-	public List<Person> getPersonData() {
+	public List<Person> getPersonData(String filter) {
 		
 		List<Person> personList = new LinkedList<>();
 		
@@ -41,6 +37,8 @@ public class DataService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		personList = personList.stream().filter(person -> person.getName().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
 		
 		return personList;
 	}

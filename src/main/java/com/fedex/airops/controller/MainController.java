@@ -1,7 +1,10 @@
 package com.fedex.airops.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fedex.airops.service.TemplateService;
@@ -16,13 +19,13 @@ public class MainController {
 	}
 	
 	@GetMapping("/")
-	public String getIndex() {
-		return templateService.getTemplate("index.vm");
+	public String getIndex(HttpSession session) {
+		return templateService.getTemplate("index.vm", session);
 	}
 	
-	@PostMapping
-	public String updateFilter() {
-		System.out.println("updating filter");
-		return "success";
+	@GetMapping("/updateFilter")
+	public String updateFilter(HttpSession session, @RequestParam(value="filter") String filter) {
+		session.setAttribute("filter", filter);
+		return filter;
 	}
 }

@@ -3,6 +3,8 @@ package com.fedex.airops.service;
 import java.io.StringWriter;
 import java.util.Properties;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -29,11 +31,18 @@ public class TemplateService {
 		velocity.init(properties);
 	}
 	
-	public String getTemplate(String templateName) {
+	public String getTemplate(String templateName, HttpSession session) {
+		
+		String filter = "";
+		
+		if (session.getAttribute("filter") != null)
+			filter = session.getAttribute("filter").toString();
+		
 		Template template = velocity.getTemplate(templateName);
 		
 		VelocityContext context = new VelocityContext();
-		context.put("personList", dataService.getPersonData());
+		context.put("personList", dataService.getPersonData(filter));
+		context.put("filter", filter);
 		
 		StringWriter writer = new StringWriter();
         template.merge(context, writer);
