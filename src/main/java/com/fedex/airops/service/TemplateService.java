@@ -11,6 +11,8 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fedex.airops.dao.Person;
+
 @Service
 public class TemplateService {
 
@@ -34,15 +36,20 @@ public class TemplateService {
 	public String getTemplate(String templateName, HttpSession session) {
 		
 		String filter = "";
+		Person person = new Person();
 		
 		if (session.getAttribute("filter") != null)
 			filter = session.getAttribute("filter").toString();
+		
+		if (session.getAttribute("currentPerson") != null)
+			person = dataService.getPerson(session.getAttribute("currentPerson").toString());
 		
 		Template template = velocity.getTemplate(templateName);
 		
 		VelocityContext context = new VelocityContext();
 		context.put("personList", dataService.getPersonData(filter));
 		context.put("filter", filter);
+		context.put("currentPerson", person);
 		
 		StringWriter writer = new StringWriter();
         template.merge(context, writer);

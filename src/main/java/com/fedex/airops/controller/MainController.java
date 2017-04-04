@@ -28,4 +28,10 @@ public class MainController {
 		session.setAttribute("filter", filter);
 		return filter;
 	}
+	
+	@GetMapping("/setCurrentPerson")
+	public String setCurrentPerson(HttpSession session, @RequestParam(value="currentPerson") String currentPerson) {
+		session.setAttribute("currentPerson", currentPerson);
+		return currentPerson;
+	}
 }

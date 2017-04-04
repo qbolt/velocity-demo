@@ -2,15 +2,31 @@
 <head>
 	<meta charset="utf-8">
 	<title>Velocity Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
-	<input type="text" id="filter" value="$filter"></input>
-	#foreach ($person in $personList)
-		<div>
-			<h4>$person.name</h4>
+	<div class="navbar">
+		<div id="peopleLink" class="navbar-element">People</div>
+		<div id="otherLink" class="navbar-element">Other</div>
+	</div>
+	<div class="main">
+		<div class="sidebar">
+			<input type="text" id="filter" value="$filter"></input>
+			#foreach ($person in $personList)
+				<div>
+					<h4 class="person">$person.name</h4>
+				</div>
+			#end
 		</div>
-	#end
+		#if ($currentPerson.name) 
+			<div>
+	       		<h2>$currentPerson.name</h2>
+	       		<h5>email: $currentPerson..email</h5>
+	       		<h5>age: $currentPerson.age</h5>
+	     	</div>
+       	#end
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/filter.js"></script>
 </body>

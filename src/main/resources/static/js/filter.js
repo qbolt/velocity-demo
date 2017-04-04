@@ -7,3 +7,12 @@ $('#filter').keypress(function(e) {
 		})
 	}
 }) 
+
+$('.person').click(function(e) {
+	console.log(e.target.innerText)
+	$.ajax({
+		url: '/setCurrentPerson?currentPerson=' + e.target.innerText,
+		success: window.location.reload(),
+		failure: window.location.reload()
+	})
+})

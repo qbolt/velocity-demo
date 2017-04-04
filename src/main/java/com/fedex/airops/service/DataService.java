@@ -21,9 +21,9 @@ public class DataService {
 
 	private final static String dataUrl = "https://api.myjson.com/bins/qiver";
 	
+	private List<Person> personList = new LinkedList<>();
+	
 	public List<Person> getPersonData(String filter) {
-		
-		List<Person> personList = new LinkedList<>();
 		
 		try {
 			
@@ -32,15 +32,23 @@ public class DataService {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
 			
 			InputStream input = connection.getInputStream();
-			personList = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<List<Person>>(){}.getType());
+			this.personList = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<List<Person>>(){}.getType());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		personList = personList.stream().filter(person -> person.getName().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
-		
-		return personList;
+		this.personList = personList.stream().filter(person -> person.getName().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
+		return this.personList;
+	}
+
+	public Person getPerson(String personName) {
+		for (Person person : this.personList) {
+			if (person.getName().equals(personName)) {
+				return person;
+			}
+		}
+		return null;
 	}
 	
 }

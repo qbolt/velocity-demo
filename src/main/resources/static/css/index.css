@@ -1,38 +1,41 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: monospace;
+	font-family: monospace;
+	font-size: 1.5em;
 }
 
-header {
-  display: block;
-  height: 5vh;
-  overflow: auto;
-  background-color: ping;
-  color: red;
-  font-size: 28px;
+.person {
+	cursor: pointer;
 }
 
-.container {
-  height: 95vh;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
+.sidebar {
+	height: 100vw;
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	overflow-y: scroll;
 }
 
-pre {
-  background-color: #f8f8f8;
+.sidebar h4 {
+	margin: 12px;
+	margin-left: 0px
 }
 
-pre, textarea {
-  width: 50%;
-  font-family: monospace;
-  font-style: 28px;
-  margin: 0;
-  padding: 10px;
-  color: #222
+.main {
+	display: flex;
+	flex-direction: row;
 }
 
-textarea:focus { 
-  outline: 0
+.navbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	z-index: 2;
+}
+
+.navbar-element {
+	padding: 0px 16px 16px 0px;
+}
+
+.navbar-element:hover {
+	cursor: pointer;
 }
