@@ -20,25 +20,28 @@ import com.google.gson.reflect.TypeToken;
 public class DataService {
 
 	private final static String dataUrl = "https://api.myjson.com/bins/qiver";
-	
+
 	private List<Person> personList = new LinkedList<>();
-	
+
 	public List<Person> getPersonData(String filter) {
-		
+
 		try {
-			
+
 			URL url = new URL(dataUrl);
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("internet.proxy.fedex.com", 3128));
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-			
+
 			InputStream input = connection.getInputStream();
-			this.personList = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<List<Person>>(){}.getType());
-			
+			this.personList = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<List<Person>>() {
+			}.getType());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		this.personList = personList.stream().filter(person -> person.getName().toLowerCase().contains(filter.toLowerCase())).collect(Collectors.toList());
+
+		this.personList = personList.stream()
+				.filter(person -> person.getName().toLowerCase().contains(filter.toLowerCase()))
+				.collect(Collectors.toList());
 		return this.personList;
 	}
 
@@ -50,5 +53,5 @@ public class DataService {
 		}
 		return null;
 	}
-	
+
 }
